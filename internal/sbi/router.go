@@ -51,6 +51,10 @@ func newRouter(s *Server) *gin.Engine {
 	saoGroup := router.Group("/sao")
 	applyRoutes(saoGroup, s.getSAORoute())
 
+	kuroumiGroup := router.Group("/kuromi")
+	applyRoutes(kuroumiGroup, s.getKuromiRoute())
+	applyRoutes(kuroumiGroup, s.postKuromiRoute())
+
 	return router
 }
 

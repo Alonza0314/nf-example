@@ -1,6 +1,7 @@
 GO_BIN_PATH = bin
 
-VERSION = $(shell git describe --tags)
+# VERSION = $(shell git describe --tags)
+VERSION = "v1.0.0"
 BUILD_TIME = $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 COMMIT_HASH = $(shell git submodule status | grep $(GO_SRC_PATH)/$(@F) | awk '{print $$(1)}' | cut -c1-8)
 COMMIT_TIME = $(shell git log --pretty="@%at" -1 | xargs date -u +"%Y-%m-%dT%H:%M:%SZ" -d)
