@@ -12,9 +12,7 @@ func (s *Server) getKuromiRoute() []Route {
 			Name:    "Hello KUROMI",
 			Method:  http.MethodGet,
 			Pattern: "/",
-			APIFunc: func(c *gin.Context) {
-				c.JSON(http.StatusOK, "Hello Kuromi!")
-			},
+			APIFunc: s.HTTPHelloKuromi,
 			// Use
 			// curl -X GET http://127.0.0.163:8000/kuromi/ -w "\n"
 		},
@@ -22,8 +20,19 @@ func (s *Server) getKuromiRoute() []Route {
 			Name:    "Big KUROMI",
 			Method:  http.MethodPost,
 			Pattern: "/",
-			APIFunc: func(c *gin.Context) {
-				c.String(http.StatusOK, "⣴⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⡷\n"+
+			APIFunc: s.HTTPBigKuromi,
+			// Use
+			// curl -X POST http://127.0.0.163:8000/kuromi/ -w "\n"
+		},
+	}
+}
+
+func(s *Server) HTTPHelloKuromi(c *gin.Context) {
+	c.JSON(http.StatusOK, "Hello Kuromi!")
+}
+
+func(s *Server) HTTPBigKuromi(c *gin.Context) {
+	c.String(http.StatusOK, "⣴⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⡷\n"+
 					"⠈⣿⣷⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣿⣿\n"+
 					"⠀⢸⣿⣿⣿⣿⣷⣆⣀⣀⣀⣀⣀⣾⣿⣿⣿⣿⡇\n"+
 					"⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇\n"+
@@ -36,9 +45,4 @@ func (s *Server) getKuromiRoute() []Route {
 					"⠀⠀⠀⠀⠀⠑⢸⠉⠀⠀⠀⠀⠁⡄⢘⣽⣿\n"+
 					"⠀⠀⠀⠀⠀⠀⡜⠀⠀⢰⡆⠀⠀⠻⠛⠋\n"+
 					"⠀⠀⠀⠀⠀⠀⠑⠒⠒⠈⠈⠒⠒⠊")
-			},
-			// Use
-			// curl -X POST http://127.0.0.163:8000/kuromi/ -w "\n"
-		},
-	}
 }
