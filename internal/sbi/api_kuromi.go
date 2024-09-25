@@ -18,11 +18,6 @@ func (s *Server) getKuromiRoute() []Route {
 			// Use
 			// curl -X GET http://127.0.0.163:8000/kuromi/ -w "\n"
 		},
-	}
-}
-
-func (s *Server) postKuromiRoute() []Route {
-	return []Route{
 		{
 			Name:    "Big KUROMI",
 			Method:  http.MethodPost,
