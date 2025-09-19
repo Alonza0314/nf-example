@@ -2,6 +2,7 @@ package context
 
 import (
 	"os"
+	"sync"
 
 	"github.com/Alonza0314/nf-example/internal/logger"
 	"github.com/Alonza0314/nf-example/pkg/factory"
@@ -18,6 +19,8 @@ type NFContext struct {
 	SBIPort     int
 
 	SpyFamilyData map[string]string
+	MessageRecord []string
+	MessageMu     sync.Mutex
 }
 
 var nfContext = NFContext{}
@@ -57,6 +60,7 @@ func InitNfContext() {
 		"Henry":  "Henderson",
 		"Martha": "Marriott",
 	}
+	nfContext.MessageRecord = []string{}
 }
 
 func GetSelf() *NFContext {
