@@ -12,7 +12,7 @@ func (s *Server) myPutGetMessageRoute() []Route {
 			Name:    "get messages",
 			Method:  http.MethodGet,
 			Pattern: "/",
-			APIFunc: s.getMessageRecord,
+			APIFunc: s.HTTPGetMessageRecord,
 			// Use
 			// curl -X GET http://127.0.0.163:8000/message/ -w "\n"
 			// return all added message
@@ -21,7 +21,7 @@ func (s *Server) myPutGetMessageRoute() []Route {
 			Name:    "add message",
 			Method:  http.MethodPut,
 			Pattern: "/:Message",
-			APIFunc: s.addNewMessage,
+			APIFunc: s.HTTPAddNewMessage,
 			// Use
 			// curl -X PUT http://127.0.0.163:8000/message/yourmessage -w "\n"
 			// add "yourmessage" to message record
@@ -36,7 +36,7 @@ func (s *Server) myPutGetMessageRoute() []Route {
 	}
 }
 
-func (s *Server) addNewMessage(c *gin.Context) {
+func (s *Server) HTTPAddNewMessage(c *gin.Context) {
 
 	newMessage := c.Param("Message")
 	if newMessage == "" {
@@ -49,6 +49,6 @@ func (s *Server) noMessageHandler(c *gin.Context) {
 	c.String(http.StatusBadRequest, "No message provided")
 }
 
-func (s *Server) getMessageRecord(c *gin.Context) {
+func (s *Server) HTTPGetMessageRecord(c *gin.Context) {
 	s.Processor().GetMessageRecord(c)
 }
