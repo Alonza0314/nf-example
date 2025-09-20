@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (s *Server) getMessageRoute() []Route {
+func (s *Server) myPutGetMessageRoute() []Route {
 	return []Route{
 		{
 			Name:    "get messages",
@@ -15,12 +15,8 @@ func (s *Server) getMessageRoute() []Route {
 			APIFunc: s.getMessageRecord,
 			// Use
 			// curl -X GET http://127.0.0.163:8000/message/ -w "\n"
+			// return all added message
 		},
-	}
-}
-
-func (s *Server) putMessageRoute() []Route {
-	return []Route{
 		{
 			Name:    "add message",
 			Method:  http.MethodPut,
