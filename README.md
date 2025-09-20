@@ -1,4 +1,4 @@
-# NF-Example
+# NF-example
 
 This repository is a sample NF for a simple HTTP service!
 Try adding more services and learn how to collaborate using GitHub.
