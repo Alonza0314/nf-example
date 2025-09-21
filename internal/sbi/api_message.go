@@ -31,7 +31,7 @@ func (s *Server) getMessageRoute() []Route {
 		{
 			Name:    "Get Message by ID",
 			Method:  http.MethodGet,
-			Pattern: "/:id",
+			Pattern: "/:id", // ":" is used for dynamic parameter
 			APIFunc: s.HTTPGetMessageByID,
 			// Use
 			// curl -X GET http://127.0.0.163:8000/message/{message-id} -w "\n"
@@ -51,7 +51,7 @@ func (s *Server) HTTPPostMessage(c *gin.Context) {
 		})
 		return
 	}
-
+	// if req has redundant fields, it will be ignored
 	s.Processor().PostMessage(c, req)
 }
 
@@ -65,13 +65,6 @@ func (s *Server) HTTPGetMessageByID(c *gin.Context) {
 	logger.SBILog.Infof("In HTTPGetMessageByID")
 
 	messageID := c.Param("id")
-	if messageID == "" {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "Message ID is required",
-			"error":   "No message ID provided in URL path",
-		})
-		return
-	}
 
 	s.Processor().GetMessageByID(c, messageID)
 }

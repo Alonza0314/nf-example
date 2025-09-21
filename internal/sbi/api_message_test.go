@@ -319,45 +319,4 @@ func Test_HTTPGetMessageByID(t *testing.T) {
 			t.Errorf("Expected message 'Message not found', got %s", response["message"])
 		}
 	})
-
-	t.Run("Get Message with Empty ID", func(t *testing.T) {
-		const EXPECTED_STATUS = http.StatusBadRequest
-		const EXPECTED_MESSAGE = "Message ID is required"
-		const EXPECTED_ERROR = "No message ID provided in URL path"
-
-		httpRecorder := httptest.NewRecorder()
-		ginCtx, _ := gin.CreateTestContext(httpRecorder)
-
-		var err error
-		ginCtx.Request, err = http.NewRequest("GET", "/message/", nil)
-		if err != nil {
-			t.Errorf("Failed to create request: %s", err)
-			return
-		}
-
-		// Set empty param to simulate missing ID
-		ginCtx.Params = gin.Params{
-			{Key: "id", Value: ""},
-		}
-
-		server.HTTPGetMessageByID(ginCtx)
-
-		if httpRecorder.Code != EXPECTED_STATUS {
-			t.Errorf("Expected status code %d, got %d", EXPECTED_STATUS, httpRecorder.Code)
-		}
-
-		var response map[string]interface{}
-		err = json.Unmarshal(httpRecorder.Body.Bytes(), &response)
-		if err != nil {
-			t.Errorf("Failed to unmarshal response: %s", err)
-		}
-
-		if response["message"] != EXPECTED_MESSAGE {
-			t.Errorf("Expected message %s, got %s", EXPECTED_MESSAGE, response["message"])
-		}
-
-		if response["error"] != EXPECTED_ERROR {
-			t.Errorf("Expected error %s, got %s", EXPECTED_ERROR, response["error"])
-		}
-	})
 }

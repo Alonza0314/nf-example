@@ -25,7 +25,6 @@ type GetMessagesResponse struct {
 }
 
 func (p *Processor) PostMessage(c *gin.Context, req PostMessageRequest) {
-	// 創建新的message
 	newMessage := nf_context.Message{
 		ID:      uuid.New().String(),
 		Content: req.Content,
@@ -33,11 +32,11 @@ func (p *Processor) PostMessage(c *gin.Context, req PostMessageRequest) {
 		Time:    time.Now().Format(time.RFC3339),
 	}
 
-	// 將message添加到context中
+	// add message to context
 	ctx := p.Context()
 	ctx.Messages = append(ctx.Messages, newMessage)
 
-	// 回傳成功回應
+	// return success response
 	response := PostMessageResponse{
 		Message: "Message posted successfully",
 		Data:    newMessage,
@@ -60,7 +59,7 @@ func (p *Processor) GetMessages(c *gin.Context) {
 func (p *Processor) GetMessageByID(c *gin.Context, messageID string) {
 	ctx := p.Context()
 
-	// 查找指定ID的message
+	// find message with specified ID
 	for _, message := range ctx.Messages {
 		if message.ID == messageID {
 			response := PostMessageResponse{
@@ -72,7 +71,7 @@ func (p *Processor) GetMessageByID(c *gin.Context, messageID string) {
 		}
 	}
 
-	// 如果找不到message
+	// if message not found
 	c.JSON(http.StatusNotFound, gin.H{
 		"message": "Message not found",
 		"error":   "No message found with the specified ID",
