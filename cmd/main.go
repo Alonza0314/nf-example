@@ -20,12 +20,14 @@ import (
 var NF *service.NfApp
 
 func main() {
+	// Recover from panic and print stack to log
 	defer func() {
 		if p := recover(); p != nil {
 			// Print stack for panic to log. Fatalf() will let program exit.
 			logger.MainLog.Fatalf("panic: %v\n%s", p, string(debug.Stack()))
 		}
 	}()
+	// command line options
 	app := cli.NewApp()
 	app.Name = "anya"
 	app.Usage = "SPYxFamily"
@@ -45,19 +47,24 @@ func main() {
 	}
 }
 
+// called by app.Run automatically if cli's children is not executed
 func action(cliCtx *cli.Context) error {
+	// ./bin/nf -c config/nfcfg.yaml
+	// StringSlice is empty
 	tlsKeyLogPath, err := initLogFile(cliCtx.StringSlice("log"))
 	if err != nil {
 		return err
 	}
-
 	logger.MainLog.Infoln("Anya version: ", version.GetVersion())
+	// String is config/nfcfg.yaml
 	cfg, err := factory.ReadConfig(cliCtx.String("config"))
 	if err != nil {
 		return err
 	}
+	// set cfg to global variable in factory package
 	factory.NfConfig = cfg
 
+	// handle SIGINT and SIGTERM
 	ctx, cancel := context.WithCancel(context.Background())
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, os.Interrupt, syscall.SIGTERM)
@@ -66,7 +73,9 @@ func action(cliCtx *cli.Context) error {
 		<-sigCh  // Wait for interrupt signal to gracefully shutdown
 		cancel() // Notify each goroutine and wait them stopped
 	}()
-
+	// ctx: cancel when SIGINT or SIGTERM received
+	// cfg: configuration read from config file
+	// tlsKeyLogPath: path to store TLS key log for wireshark
 	nf, err := service.NewApp(ctx, cfg, tlsKeyLogPath)
 	if err != nil {
 		return err

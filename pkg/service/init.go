@@ -31,6 +31,7 @@ type NfApp struct {
 var _ app.App = &NfApp{}
 
 func NewApp(ctx context.Context, cfg *factory.Config, tlsKeyLogPath string) (*NfApp, error) {
+	// Initialize NF context from factory.NfConfig
 	nf_context.InitNfContext()
 
 	nf := &NfApp{
@@ -45,6 +46,7 @@ func NewApp(ctx context.Context, cfg *factory.Config, tlsKeyLogPath string) (*Nf
 
 	nf.ctx, nf.cancel = context.WithCancel(ctx)
 
+	// Initialize SBI server
 	sbiServer := sbi.NewServer(nf, tlsKeyLogPath)
 	nf.sbiServer = sbiServer
 

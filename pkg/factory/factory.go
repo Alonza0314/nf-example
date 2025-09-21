@@ -17,11 +17,12 @@ func InitConfigFactory(f string, cfg *Config) error {
 		// Use default config path
 		f = NfDefaultConfigPath
 	}
-
+	// read nfcfg.yaml content
 	if content, err := os.ReadFile(f); err != nil {
 		return fmt.Errorf("[Factory] %+v", err)
 	} else {
 		logger.CfgLog.Infof("Read config from [%s]", f)
+		// nfcfg.yaml to cfg
 		if yamlErr := yaml.Unmarshal(content, cfg); yamlErr != nil {
 			return fmt.Errorf("[Factory] %+v", yamlErr)
 		}
