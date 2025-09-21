@@ -18,6 +18,15 @@ type NFContext struct {
 	SBIPort     int
 
 	SpyFamilyData map[string]string
+	Messages      []Message // add for lab6
+}
+
+// add for lab6
+type Message struct {
+	ID      string `json:"id"`
+	Content string `json:"content"`
+	Author  string `json:"author"`
+	Time    string `json:"time"`
 }
 
 var nfContext = NFContext{}
@@ -57,6 +66,7 @@ func InitNfContext() {
 		"Henry":  "Henderson",
 		"Martha": "Marriott",
 	}
+	nfContext.Messages = make([]Message, 0) // add for lab6
 }
 
 func GetSelf() *NFContext {
