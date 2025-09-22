@@ -2,6 +2,7 @@ package context
 
 import (
 	"os"
+	"sync"
 
 	"github.com/Alonza0314/nf-example/internal/logger"
 	"github.com/Alonza0314/nf-example/pkg/factory"
@@ -9,6 +10,11 @@ import (
 
 	"github.com/free5gc/openapi/models"
 )
+
+type Task struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
 
 type NFContext struct {
 	NfId        string
@@ -18,7 +24,15 @@ type NFContext struct {
 	SBIPort     int
 
 	SpyFamilyData map[string]string
-	Messages      []Message // add for lab6
+
+	MessageRecord []string
+	MessageMu     sync.Mutex
+
+	Tasks      []Task
+	TaskMutex  sync.RWMutex
+	NextTaskID uint64
+
+	Messages []Message // add for lab6
 }
 
 // add for lab6
@@ -66,6 +80,12 @@ func InitNfContext() {
 		"Henry":  "Henderson",
 		"Martha": "Marriott",
 	}
+
+	nfContext.MessageRecord = []string{}
+
+	nfContext.Tasks = make([]Task, 0)
+	nfContext.NextTaskID = 0
+
 	nfContext.Messages = make([]Message, 0) // add for lab6
 }
 
