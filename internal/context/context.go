@@ -32,10 +32,9 @@ type NFContext struct {
 	TaskMutex  sync.RWMutex
 	NextTaskID uint64
 
-	Messages []Message // add for lab6
+	Messages []Message
 }
 
-// add for lab6
 type Message struct {
 	ID      string `json:"id"`
 	Content string `json:"content"`
@@ -86,7 +85,7 @@ func InitNfContext() {
 	nfContext.Tasks = make([]Task, 0)
 	nfContext.NextTaskID = 0
 
-	nfContext.Messages = make([]Message, 0) // add for lab6
+	nfContext.Messages = make([]Message, 0)
 }
 
 func GetSelf() *NFContext {
