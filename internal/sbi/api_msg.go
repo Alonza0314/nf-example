@@ -16,7 +16,7 @@ func (s *Server) getMessageRoute() []Route {
 			Pattern: "/",
 			APIFunc: s.HTTPPostMessage,
 			// Use
-			// curl -X POST http://127.0.0.163:8000/message/ \
+			// curl -X POST http://127.0.0.163:8000/messages/ \
 			//   -H "Content-Type: application/json" \
 			//   -d '{"content":"Hello World","author":"Anya"}' -w "\n"
 		},
@@ -26,7 +26,7 @@ func (s *Server) getMessageRoute() []Route {
 			Pattern: "/",
 			APIFunc: s.HTTPGetMessages,
 			// Use
-			// curl -X GET http://127.0.0.163:8000/message/ -w "\n"
+			// curl -X GET http://127.0.0.163:8000/messages/ -w "\n"
 		},
 		{
 			Name:    "Get Message by ID",
@@ -34,7 +34,7 @@ func (s *Server) getMessageRoute() []Route {
 			Pattern: "/:id", // ":" is used for dynamic parameter
 			APIFunc: s.HTTPGetMessageByID,
 			// Use
-			// curl -X GET http://127.0.0.163:8000/message/{message-id} -w "\n"
+			// curl -X GET http://127.0.0.163:8000/messages/{message-id} -w "\n"
 		},
 	}
 }

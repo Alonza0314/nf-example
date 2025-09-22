@@ -51,7 +51,7 @@ func newRouter(s *Server) *gin.Engine {
 	taskGroup := router.Group("/task")
 	applyRoutes(taskGroup, s.getTaskRoute())
 
-	messageGroup := router.Group("/message") // add for lab6
+	messageGroup := router.Group("/messages") // add for lab6
 	applyRoutes(messageGroup, s.getMessageRoute())
 
 	return router
