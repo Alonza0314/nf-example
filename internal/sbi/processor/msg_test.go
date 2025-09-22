@@ -82,7 +82,7 @@ func Test_PostMessage(t *testing.T) {
 
 		// Parse the JSON response to verify its structure and content
 		var response processor.PostMessageResponse
-		err := json.Unmarshal(httpRecorder.Body.Bytes(), &response)
+		err = json.Unmarshal(httpRecorder.Body.Bytes(), &response)
 		if err != nil {
 			t.Errorf("Failed to unmarshal response: %s", err)
 		}
@@ -188,7 +188,7 @@ func Test_GetMessages(t *testing.T) {
 
 		// Parse and verify the JSON response structure
 		var response processor.GetMessagesResponse
-		err := json.Unmarshal(httpRecorder.Body.Bytes(), &response)
+		err = json.Unmarshal(httpRecorder.Body.Bytes(), &response)
 		if err != nil {
 			t.Errorf("Failed to unmarshal response: %s", err)
 		}
@@ -252,7 +252,7 @@ func Test_GetMessages(t *testing.T) {
 
 		// Parse and verify the JSON response with actual data
 		var response processor.GetMessagesResponse
-		err := json.Unmarshal(httpRecorder.Body.Bytes(), &response)
+		err = json.Unmarshal(httpRecorder.Body.Bytes(), &response)
 		if err != nil {
 			t.Errorf("Failed to unmarshal response: %s", err)
 		}
@@ -351,7 +351,7 @@ func Test_GetMessageByID(t *testing.T) {
 
 		// Parse the JSON response to verify message data integrity
 		var response processor.PostMessageResponse
-		err := json.Unmarshal(httpRecorder.Body.Bytes(), &response)
+		err = json.Unmarshal(httpRecorder.Body.Bytes(), &response)
 		if err != nil {
 			t.Errorf("Failed to unmarshal response: %s", err)
 		}
@@ -412,7 +412,7 @@ func Test_GetMessageByID(t *testing.T) {
 
 		// Parse the error response to verify proper error formatting
 		var response map[string]interface{}
-		err := json.Unmarshal(httpRecorder.Body.Bytes(), &response)
+		err = json.Unmarshal(httpRecorder.Body.Bytes(), &response)
 		if err != nil {
 			t.Errorf("Failed to unmarshal response: %s", err)
 		}
