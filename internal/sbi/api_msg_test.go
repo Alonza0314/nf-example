@@ -162,7 +162,7 @@ func Test_HTTPPostMessage(t *testing.T) {
 		ginCtx, _ := gin.CreateTestContext(httpRecorder)
 
 		// Create request with the invalid JSON payload
-		//var err error
+		// var err error
 		ginCtx.Request, err = http.NewRequest("POST", "/message/", bytes.NewBuffer(invalidJSON))
 		if err != nil {
 			t.Errorf("Failed to create request: %s", err)
@@ -303,7 +303,7 @@ func Test_HTTPGetMessages(t *testing.T) {
 
 		// Create a GET request to retrieve all messages
 		// No request body is needed for GET requests
-		//var err error
+		// var err error
 		ginCtx.Request, err = http.NewRequest("GET", "/message/", nil)
 		if err != nil {
 			t.Errorf("Failed to create request: %s", err)
@@ -389,7 +389,7 @@ func Test_HTTPGetMessageByID(t *testing.T) {
 		ginCtx, _ := gin.CreateTestContext(httpRecorder)
 
 		// Create a GET request for a specific message ID
-		//var err error
+		// var err error
 		ginCtx.Request, err = http.NewRequest("GET", "/message/"+MESSAGE_ID, nil)
 		if err != nil {
 			t.Errorf("Failed to create request: %s", err)
