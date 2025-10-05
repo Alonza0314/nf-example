@@ -58,6 +58,9 @@ func newRouter(s *Server) *gin.Engine {
 	messageGroup := router.Group("/msg") // add for lab6
 	applyRoutes(messageGroup, s.getMessageRoute())
 
+	dragonBallGroup := router.Group("/dragonball")
+	applyRoutes(dragonBallGroup, s.getDragonBallRoute())
+
 	return router
 }
 
