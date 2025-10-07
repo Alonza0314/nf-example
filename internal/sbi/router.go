@@ -1,4 +1,4 @@
-package sbi
+	package sbi
 
 import (
 	"fmt"
@@ -44,6 +44,9 @@ func newRouter(s *Server) *gin.Engine {
 
 	spyFamilyGroup := router.Group("/spyfamily")
 	applyRoutes(spyFamilyGroup, s.getSpyFamilyRoute())
+
+	attendenceGroup := router.Group("/attendence")
+	applyRoutes(attendenceGroup, s.getAttendenceRoute())
 
 	return router
 }

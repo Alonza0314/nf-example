@@ -18,6 +18,8 @@ type NFContext struct {
 	SBIPort     int
 
 	SpyFamilyData map[string]string
+
+	AttendenceData []string
 }
 
 var nfContext = NFContext{}
@@ -57,6 +59,7 @@ func InitNfContext() {
 		"Henry":  "Henderson",
 		"Martha": "Marriott",
 	}
+	nfContext.AttendenceData = []string{}
 }
 
 func GetSelf() *NFContext {
