@@ -61,6 +61,9 @@ func newRouter(s *Server) *gin.Engine {
 	fortuneGroup := router.Group("/fortune")
 	applyRoutes(fortuneGroup, s.getFortuneRoute())
 
+	onePunchManGroup := router.Group("/onepunchman")
+	applyRoutes(onePunchManGroup, s.getOnePunchManRoute())
+
 	return router
 }
 
