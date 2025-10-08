@@ -44,5 +44,9 @@ func (s *Server) PostAttendence(c *gin.Context) {
 	}
 
 	targetName := string(body)
+	if targetName == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "no name provided"})
+		return
+	}
 	s.Processor().PostAttendence(c, targetName)
 }
