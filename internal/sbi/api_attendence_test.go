@@ -32,7 +32,7 @@ func Test_Attendence(t *testing.T) {
 		httpRecorder := httptest.NewRecorder()
 		ginCtx, _ := gin.CreateTestContext(httpRecorder)
 		var err error
-		ginCtx.Request, err = http.NewRequest("POST", "/attendence", nil)
+		ginCtx.Request, err = http.NewRequest("POST", "/attendence", strings.NewReader(""))
 		if err != nil {
 			t.Errorf("Failed to create request: %s", err)
 			return
