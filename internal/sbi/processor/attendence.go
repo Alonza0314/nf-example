@@ -17,9 +17,7 @@ func (p *Processor) ReturnAttendence(c *gin.Context) {
 		for _, name := range con.AttendenceData {
 			names += name + ", "
 		}
-		c.JSON(http.StatusOK, gin.H{
-			"Attendence": names[:len(names)-2],
-		})
+		c.String(http.StatusOK, `{"Attendence":"`+names[:len(names)-2]+`"}`)
 		return
 	}
 }
@@ -33,11 +31,8 @@ func (p *Processor) PostAttendence(c *gin.Context, targetName string) {
 			return
 		}
 	}
-	
+
 	con.AttendenceData = append(con.AttendenceData, targetName)
-	c.JSON(http.StatusOK, gin.H{
-		"Message": "Attendence recorded: " + targetName,
-	})
-	return
-	
+
+	c.String(http.StatusOK, "Attendence recorded: "+targetName)
 }

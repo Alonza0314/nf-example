@@ -28,7 +28,7 @@ func Test_Attendence(t *testing.T) {
 
 	t.Run("No attendence name provided", func(t *testing.T) {
 		const EXPECTED_STATUS = http.StatusBadRequest
-		const EXPECTED_BODY = "{\"error\":\"failed to read body\"}\n"
+		const EXPECTED_BODY = "{\"error\":\"no name provided\"}"
 		httpRecorder := httptest.NewRecorder()
 		ginCtx, _ := gin.CreateTestContext(httpRecorder)
 		var err error
