@@ -29,7 +29,7 @@ func (p *Processor) PostAttendence(c *gin.Context, targetName string) {
 
 	for n := range con.AttendenceData {
 		if con.AttendenceData[n] == targetName {
-			c.String(http.StatusConflict, "Attendence already recorded for: "+targetName)
+			c.String(http.StatusConflict, "Attendence already recorded: "+targetName)
 			return
 		}
 	}

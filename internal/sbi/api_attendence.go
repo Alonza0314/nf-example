@@ -3,6 +3,8 @@ package sbi
 import (
 	"net/http"
 
+	"io"
+
 	"github.com/Alonza0314/nf-example/internal/logger"
 	"github.com/gin-gonic/gin"
 )
@@ -15,12 +17,14 @@ func (s *Server) getAttendenceRoute() []Route {
 			Pattern: "/",
 			APIFunc: s.GetAttendence,
 		},
+		// curl -X GET http://127.0.0.163:8000/attendence/ -w "\n"
 		{
 			Name:    "Post Attendence",
 			Method:  http.MethodPost,
 			Pattern: "/",
 			APIFunc: s.PostAttendence,
 		},
+		// curl -X POST http://127.0.0.163:8000/attendence/ -d 'John' -w "\n"
 	}
 }
 
@@ -33,6 +37,12 @@ func (s *Server) GetAttendence(c *gin.Context) {
 func (s *Server) PostAttendence(c *gin.Context) {
 	logger.SBILog.Infof("In HTTPPostAttendence")
 
-	targetName := c.Param("Name")
+	body, err := io.ReadAll(c.Request.Body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to read body"})
+		return
+	}
+
+	targetName := string(body)
 	s.Processor().PostAttendence(c, targetName)
 }
