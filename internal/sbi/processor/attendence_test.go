@@ -75,7 +75,7 @@ func Test_PostAttendence(t *testing.T) {
 	t.Run("Post New Attendence", func(t *testing.T) {
 		const INPUT_NAME = "David"
 		const EXPECTED_STATUS = 200
-		const EXPECTED_BODY = `{"Message":"Attendence recorded: ` + INPUT_NAME + `"}`
+		const EXPECTED_BODY = "Attendence recorded: "+ INPUT_NAME
 		processorNf.EXPECT().Context().Return(&nf_context.NFContext{
 			AttendenceData: []string{"Alice", "Bob", "Charlie"},
 		})
