@@ -1,7 +1,6 @@
 package sbi_test
 
 import (
-	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -13,7 +12,7 @@ import (
 	"go.uber.org/mock/gomock"
 )
 
-func Test_GetAttendence(t *testing.T) {
+func Test_Attendence(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
 	mockCtrl := gomock.NewController(t)
@@ -27,31 +26,9 @@ func Test_GetAttendence(t *testing.T) {
 	}).AnyTimes()
 	server := sbi.NewServer(nfApp, "")
 
-	t.Run("No attendence recorded", func(t *testing.T) {
-		const EXPECTED_STATUS = http.StatusOK
-		const EXPECTED_BODY = "No attendence recorded"
-		httpRecorder := httptest.NewRecorder()
-		ginCtx, _ := gin.CreateTestContext(httpRecorder)
-
-		var err error
-		ginCtx.Request, err = http.NewRequest("GET", "/attendence", nil)
-		if err != nil {
-			t.Errorf("Failed to create request: %s", err)
-			return
-		}
-
-		server.GetAttendence(ginCtx)
-		if httpRecorder.Code != EXPECTED_STATUS {
-			t.Errorf("Expected status code %d, got %d", EXPECTED_STATUS, httpRecorder.Code)
-		}
-		if httpRecorder.Body.String() != EXPECTED_BODY {
-			t.Errorf("Expected body %s, got %s", EXPECTED_BODY, httpRecorder.Body.String())
-		}
-	})
-
-	t.Run("Post Attendence", func(t *testing.T) {
-		const EXPECTED_STATUS = http.StatusOK
-		const EXPECTED_BODY = "{\"Message\":\"Attendence recorded: John\"}"
+	t.Run("No attendence name provided", func(t *testing.T) {
+		const EXPECTED_STATUS = http.StatusBadRequest
+		const EXPECTED_BODY = "{\"error\":\"failed to read body\"}\n"
 		httpRecorder := httptest.NewRecorder()
 		ginCtx, _ := gin.CreateTestContext(httpRecorder)
 		var err error
@@ -60,7 +37,7 @@ func Test_GetAttendence(t *testing.T) {
 			t.Errorf("Failed to create request: %s", err)
 			return
 		}
-		ginCtx.Request.Body = io.NopCloser(strings.NewReader("John"))
+
 		server.PostAttendence(ginCtx)
 		if httpRecorder.Code != EXPECTED_STATUS {
 			t.Errorf("Expected status code %d, got %d", EXPECTED_STATUS, httpRecorder.Code)

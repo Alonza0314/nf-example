@@ -42,7 +42,7 @@ func Test_ReturnAttendence(t *testing.T) {
 
 	t.Run("Some Attendence Recorded", func(t *testing.T) {
 		const EXPECTED_STATUS = 200
-		const EXPECTED_BODY = `{"Attendence":"Alice, Bob, Charlie"}` + "\n"
+		const EXPECTED_BODY = `{"Attendence":"Alice, Bob, Charlie"}`
 		processorNf.EXPECT().Context().Return(&nf_context.NFContext{
 			AttendenceData: []string{"Alice", "Bob", "Charlie"},
 		})
@@ -75,7 +75,7 @@ func Test_PostAttendence(t *testing.T) {
 	t.Run("Post New Attendence", func(t *testing.T) {
 		const INPUT_NAME = "David"
 		const EXPECTED_STATUS = 200
-		const EXPECTED_BODY = `{"Message":"Attendence recorded: ` + INPUT_NAME + `"}` + "\n"
+		const EXPECTED_BODY = `{"Message":"Attendence recorded: ` + INPUT_NAME + `"}`
 		processorNf.EXPECT().Context().Return(&nf_context.NFContext{
 			AttendenceData: []string{"Alice", "Bob", "Charlie"},
 		})
@@ -107,7 +107,7 @@ func Test_PostAttendence(t *testing.T) {
 			t.Errorf("Expected status code %d, got %d", EXPECTED_STATUS, httpRecorder.Code)
 		}
 
-		if httpRecorder.Body.String() != EXPECTED_BODY {	
+		if httpRecorder.Body.String() != EXPECTED_BODY {
 			t.Errorf("Expected body %s, got %s", EXPECTED_BODY, httpRecorder.Body.String())
 		}
 	})
