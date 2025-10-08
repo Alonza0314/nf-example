@@ -17,7 +17,7 @@ func (p *Processor) ReturnAttendence(c *gin.Context) {
 		for _, name := range con.AttendenceData {
 			names += name + ", "
 		}
-		c.String(http.StatusOK, `{"Attendence":"`+names[:len(names)-2]+`"}`)
+		c.String(http.StatusOK, "Attendence: "+names[:len(names)-2])
 		return
 	}
 }
