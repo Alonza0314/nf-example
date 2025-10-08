@@ -39,14 +39,29 @@ func applyRoutes(group *gin.RouterGroup, routes []Route) {
 func newRouter(s *Server) *gin.Engine {
 	router := logger_util.NewGinWithLogrus(logger.GinLog)
 
+	// Add routes to each api group
 	defaultGroup := router.Group("/default")
 	applyRoutes(defaultGroup, s.getDefaultRoute())
+
+	myPutGetMessageGroup := router.Group("/message")
+	applyRoutes(myPutGetMessageGroup, s.myPutGetMessageRoute())
 
 	spyFamilyGroup := router.Group("/spyfamily")
 	applyRoutes(spyFamilyGroup, s.getSpyFamilyRoute())
 
 	attendenceGroup := router.Group("/attendence")
 	applyRoutes(attendenceGroup, s.getAttendenceRoute())
+	taskGroup := router.Group("/task")
+	applyRoutes(taskGroup, s.getTaskRoute())
+
+	messageGroup := router.Group("/msg") // add for lab6
+	applyRoutes(messageGroup, s.getMessageRoute())
+
+	dragonBallGroup := router.Group("/dragonball")
+	applyRoutes(dragonBallGroup, s.getDragonBallRoute())
+
+	fortuneGroup := router.Group("/fortune")
+	applyRoutes(fortuneGroup, s.getFortuneRoute())
 
 	return router
 }
@@ -54,5 +69,6 @@ func newRouter(s *Server) *gin.Engine {
 func bindRouter(nf app.App, router *gin.Engine, tlsKeyLogPath string) (*http.Server, error) {
 	sbiConfig := nf.Config().Configuration.Sbi
 	bindAddr := fmt.Sprintf("%s:%d", sbiConfig.BindingIPv4, sbiConfig.Port)
+	// Use http2 for all SBI communication
 	return httpwrapper.NewHttp2Server(bindAddr, tlsKeyLogPath, router)
 }
