@@ -23,7 +23,9 @@ func (s *Server) getOnePunchManRoute() []Route {
 			Method:  http.MethodPost,
 			Pattern: "/echo",
 			APIFunc: s.HTTPOnePunchManEcho,
-			// curl -X POST http://127.0.0.163:8000/onepunchman/echo -H "Content-Type: application/json" -d '{"name":"Saitama","power":100}'
+			// curl -X POST http://127.0.0.163:8000/onepunchman/echo \
+			//   -H "Content-Type: application/json" \
+			//   -d '{"name":"Saitama","power":100}'
 		},
 	}
 }
