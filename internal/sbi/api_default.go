@@ -36,3 +36,7 @@ func (s *Server) getDefaultRoute() []Route {
 		},
 	}
 }
+
+func (s *Server) RegisterDefaultRoutes(group *gin.RouterGroup) {
+	applyRoutes(group, s.getDefaultRoute())
+}
