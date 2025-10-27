@@ -68,7 +68,7 @@ func newRouter(s *Server) *gin.Engine {
 	onePunchManGroup := router.Group("/onepunchman")
 	applyRoutes(onePunchManGroup, s.getOnePunchManRoute())
 
-  timeZoneGroup := router.Group("/timezone")
+	timeZoneGroup := router.Group("/timezone")
 	applyRoutes(timeZoneGroup, s.getTimeZoneRoute())
 
 	return router
