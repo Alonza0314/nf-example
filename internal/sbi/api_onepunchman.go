@@ -29,6 +29,7 @@ func (s *Server) getOnePunchManRoute() []Route {
 		},
 	}
 }
+
 func (s *Server) HTTPOnePunchManEcho(c *gin.Context) {
 	// 定義一個 map 接收 JSON
 	var requestData map[string]interface{}
