@@ -1,0 +1,20 @@
+info:
+  version: 1.0.0
+  description: NF Example with MyAPI service
+
+configuration:
+  nfName: MyNF # nombre identificador del NF
+  sbi: # Service-based interface
+    scheme: http
+    bindingIPv4: 127.0.0.1  # dirección de escucha local
+    port: 29531
+    tls:
+      pem: cert/nf.pem
+      key: cert/nf.key
+  serviceNameList:
+    - myapi
+
+logger:
+  enable: true
+  level: info
+  reportCaller: false
