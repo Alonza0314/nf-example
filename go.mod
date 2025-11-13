@@ -2,6 +2,8 @@ module github.com/Alonza0314/nf-example
 
 go 1.24
 
+toolchain go1.24.10
+
 require (
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 	github.com/free5gc/openapi v1.2.0
