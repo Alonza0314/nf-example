@@ -1,4 +1,4 @@
-kpackage sbi
+package sbi
 
 import (
 	"fmt"
