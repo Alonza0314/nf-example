@@ -2,7 +2,7 @@ module github.com/Alonza0314/nf-example
 
 go 1.21
 
-toolchain go1.24.0
+toolchain go1.21
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
