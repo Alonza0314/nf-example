@@ -2,9 +2,9 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, 'feature/*' ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, 'feature/*' ]
 
 jobs:
   lint:
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.21'
+          go-version: '1.24'
 
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
@@ -34,7 +34,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.21'
+          go-version: '1.24'
 
       - name: Run tests
         run: go test -v ./...
@@ -56,16 +56,13 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.21'
+          go-version: '1.24'
 
-      - name: Build
-        run: go build -v ./...
+      - name: Build nf binary
+        run: make
 
-      - name: Build binary
-        run: go build -o myapp main.go
-
-      - name: Upload artifact
+      - name: Upload nf artifact
         uses: actions/upload-artifact@v4
         with:
-          name: myapp-binary
-          path: myapp
+          name: nf-binary
+          path: bin-nf
