@@ -2,9 +2,9 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ main, master, 'feature/*' ]
+    branches: [ main, master, 'feature/*', feature-nueva-api ]
   pull_request:
-    branches: [ main, master, 'feature/*' ]
+    branches: [ main, master, 'feature/*', feature-nueva-api ]
 
 jobs:
   lint:
