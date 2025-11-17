@@ -26,7 +26,7 @@ jobs:
         run: CGO_ENABLED=0 go build -o bin/nf ./cmd/main.go
 
       - name: Upload binary artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: nf-binary
           path: bin/nf
