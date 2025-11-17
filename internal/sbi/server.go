@@ -112,3 +112,20 @@ func (s *Server) shutdownHttpServer() {
 		logger.SBILog.Errorf("HTTP server shutdown failed: %+v", err)
 	}
 }
+
+func (s *Server) getStudentRoute() []Route {
+	return []Route{
+		{
+			Name:    "GetStudentData",
+			Method:  "GET",
+			Pattern: "/data",
+			APIFunc: GetStudentData,
+		},
+		{
+			Name:    "RegisterStudent",
+			Method:  "POST",
+			Pattern: "/register",
+			APIFunc: RegisterStudent,
+		},
+	}
+}
