@@ -1,0 +1,32 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main, feature/new-api ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.20
+
+      - name: Download dependencies
+        run: go mod tidy
+
+      - name: Build project
+        run: CGO_ENABLED=0 go build -o bin/nf ./cmd/main.go
+
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: nf-binary
+          path: bin/nf
