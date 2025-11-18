@@ -1,9 +1,9 @@
 package sbi
-
+import "nf-example/internal/sbi/custom"
 import (
 	"fmt"
 	"net/http"
-
+        "github.com/omatabajoy/nf-example/internal/sbi/custom" 
 	"github.com/Alonza0314/nf-example/internal/logger"
 	"github.com/Alonza0314/nf-example/pkg/app"
 	"github.com/gin-gonic/gin"
@@ -37,15 +37,18 @@ func applyRoutes(group *gin.RouterGroup, routes []Route) {
 }
 
 func newRouter(s *Server) *gin.Engine {
-	router := logger_util.NewGinWithLogrus(logger.GinLog)
+    router := logger_util.NewGinWithLogrus(logger.GinLog)
 
-	defaultGroup := router.Group("/default")
-	applyRoutes(defaultGroup, s.getDefaultRoute())
+    defaultGroup := router.Group("/default")
+    applyRoutes(defaultGroup, s.getDefaultRoute())
 
-	spyFamilyGroup := router.Group("/spyfamily")
-	applyRoutes(spyFamilyGroup, s.getSpyFamilyRoute())
+    spyFamilyGroup := router.Group("/spyfamily")
+    applyRoutes(spyFamilyGroup, s.getSpyFamilyRoute())
 
-	return router
+    // Agregar tu custom API
+    custom.AddCustomService(router)
+
+    return router
 }
 
 func bindRouter(nf app.App, router *gin.Engine, tlsKeyLogPath string) (*http.Server, error) {
