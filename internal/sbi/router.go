@@ -10,6 +10,8 @@ import (
 
 	"github.com/free5gc/util/httpwrapper"
 	logger_util "github.com/free5gc/util/logger"
+
+       "github.com/gabbyrz024/nf-example/internal/secondapi"
 )
 
 type Route struct {
@@ -44,6 +46,9 @@ func newRouter(s *Server) *gin.Engine {
 
 	spyFamilyGroup := router.Group("/spyfamily")
 	applyRoutes(spyFamilyGroup, s.getSpyFamilyRoute())
+
+    	secondAPIGroup := router.Group("/secondapi")
+	applyRoutes(secondAPIGroup, s.getSecondAPIRoute())
 
 	return router
 }
