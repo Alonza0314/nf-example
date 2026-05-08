@@ -1,3 +1,4 @@
+
 package sbi
 
 import (
@@ -45,6 +46,9 @@ func newRouter(s *Server) *gin.Engine {
 	spyFamilyGroup := router.Group("/spyfamily")
 	applyRoutes(spyFamilyGroup, s.getSpyFamilyRoute())
 
+        practiceGroup :=router.Group("/practice")
+        applyRoutes(practiceGroup, s.getPracticeRoute())
+
 	return router
 }
 
@@ -53,3 +57,4 @@ func bindRouter(nf app.App, router *gin.Engine, tlsKeyLogPath string) (*http.Ser
 	bindAddr := fmt.Sprintf("%s:%d", sbiConfig.BindingIPv4, sbiConfig.Port)
 	return httpwrapper.NewHttp2Server(bindAddr, tlsKeyLogPath, router)
 }
+
