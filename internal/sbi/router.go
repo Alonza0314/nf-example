@@ -6,10 +6,9 @@ import (
 
 	"github.com/Alonza0314/nf-example/internal/logger"
 	"github.com/Alonza0314/nf-example/pkg/app"
-	"github.com/gin-gonic/gin"
-
 	"github.com/free5gc/util/httpwrapper"
 	logger_util "github.com/free5gc/util/logger"
+	"github.com/gin-gonic/gin"
 )
 
 type Route struct {
@@ -44,6 +43,9 @@ func newRouter(s *Server) *gin.Engine {
 
 	spyFamilyGroup := router.Group("/spyfamily")
 	applyRoutes(spyFamilyGroup, s.getSpyFamilyRoute())
+
+	attackOnTitanGroup := router.Group("/attackontitan")
+	applyRoutes(attackOnTitanGroup, s.getAttackOnTitanRoute())
 
 	return router
 }
