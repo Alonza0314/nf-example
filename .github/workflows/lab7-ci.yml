@@ -1,0 +1,54 @@
+name: Lab 7 CI
+
+on:
+  push:
+    branches:
+      - main
+      - feature/**
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: Format, test and build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.x'
+          cache: true
+
+      - name: Show Go version
+        run: go version
+
+      - name: Check Go formatting
+        run: |
+          mapfile -t GO_FILES < <(find . -type f -name '*.go' -not -path './vendor/*')
+
+          if [ "${#GO_FILES[@]}" -eq 0 ]; then
+            echo "No Go files found."
+            exit 0
+          fi
+
+          UNFORMATTED="$(gofmt -l "${GO_FILES[@]}")"
+
+          if [ -n "$UNFORMATTED" ]; then
+            echo "These files are not gofmt formatted:"
+            echo "$UNFORMATTED"
+            exit 1
+          fi
+
+      - name: Run unit tests
+        run: go test -v ./...
+
+      - name: Build with Makefile
+        run: make
