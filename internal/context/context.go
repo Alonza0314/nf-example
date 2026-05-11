@@ -10,6 +10,11 @@ import (
 	"github.com/free5gc/openapi/models"
 )
 
+type Subscriber struct {
+	IMSI string `json:"imsi"`
+	Name string `json:"name"`
+}
+
 type NFContext struct {
 	NfId        string
 	Name        string
@@ -18,6 +23,7 @@ type NFContext struct {
 	SBIPort     int
 
 	SpyFamilyData map[string]string
+	Subscribers   []Subscriber
 }
 
 var nfContext = NFContext{}
@@ -40,6 +46,7 @@ func InitNfContext() {
 			nfContext.BindingIPv4 = "0.0.0.0"
 		}
 	}
+	nfContext.Subscribers = []Subscriber{}
 	nfContext.SpyFamilyData = map[string]string{
 		"Loid":   "Forger",
 		"Anya":   "Forger",
