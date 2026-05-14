@@ -42,3 +42,33 @@ func (s *Server) HTTPSerchSpyFamilyCharacter(c *gin.Context) {
 
 	s.Processor().FindSpyFamilyCharacterName(c, targetName)
 }
+func HTTPGetStudent(c *gin.Context) {
+    name := c.Param("name")
+
+    c.JSON(200, gin.H{
+        "student": name,
+        "status":  "active",
+    })
+}
+
+func HTTPCreateStudent(c *gin.Context) {
+
+    type Student struct {
+        Name string `json:"name"`
+        Age  int    `json:"age"`
+    }
+
+    var body Student
+
+    if err := c.ShouldBindJSON(&body); err != nil {
+        c.JSON(400, gin.H{
+            "error": err.Error(),
+        })
+        return
+    }
+
+    c.JSON(201, gin.H{
+        "message": "Student created successfully",
+        "student": body,
+    })
+}
