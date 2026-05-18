@@ -16,7 +16,7 @@ type NFContext struct {
 	UriScheme   models.UriScheme
 	BindingIPv4 string
 	SBIPort     int
-
+	NetworkData map[string]string
 	SpyFamilyData map[string]string
 }
 
@@ -56,6 +56,16 @@ func InitNfContext() {
 		"Emile":  "Elman",
 		"Henry":  "Henderson",
 		"Martha": "Marriott",
+	}
+	nfContext.NetworkData = map[string]string{
+		"Router-Core-01":   "Core Router",
+		"Switch-Access-01": "Access Switch",
+		"Switch-Dist-01":   "Distribution Switch",
+		"AP-Floor-01":      "Access Point",
+		"Firewall-01":      "Firewall",
+		"gNB-Site-01":      "5G Base Station",
+		"UPF-Node-01":      "User Plane Function",
+		"AMF-Node-01":      "Access Mobility Function",
 	}
 }
 
