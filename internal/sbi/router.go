@@ -44,6 +44,9 @@ func newRouter(s *Server) *gin.Engine {
 
 	spyFamilyGroup := router.Group("/spyfamily")
 	applyRoutes(spyFamilyGroup, s.getSpyFamilyRoute())
+	
+	networkGroup := router.Group("/network")
+	applyRoutes(networkGroup, s.getNetworkRoute())
 
 	return router
 }
